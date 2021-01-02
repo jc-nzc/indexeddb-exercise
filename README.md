@@ -1,3 +1,3 @@
 # indexeddb-exercise
 
-# browser based db
+browser based db
