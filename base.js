@@ -58,5 +58,22 @@ request.onupgradeneeded = function (event) {
     });
 };
 
+// now add to the db
 var transaction = db.transaction(["customers"], "readwrite");
 
+// Do something when all the data is added to the database.
+transaction.oncomplete = function(event) {
+  console.log("All done!");
+};
+
+transaction.onerror = function(event) {
+  // Don't forget to handle errors!
+};
+
+var objectStore = transaction.objectStore("customers");
+customerData.forEach(function(customer) {
+  var request = objectStore.add(customer);
+  request.onsuccess = function(event) {
+    // event.target.result === customer.ssn;
+  };
+});
