@@ -1,22 +1,24 @@
 <!DOCTYPE html>
 <html>
-<head>
-<script>
-function validateForm() {
-  var x = document.forms["myForm"]["fname"].value;
-  if (x == "") {
-    alert("Name must be filled out");
-    return false;
-  }
-}
-</script>
-</head>
-<body>
+   <head>
+      <meta charset="utf-8"/>
+   </head>
+   <body>
+      Hello.
+      <script>
+         var xhr = new XMLHttpRequest();
+         xhr.open("POST", "https://us-central1-keen-nth-poc.cloudfunctions.net/function-anthem-dupe", true);
+         xhr.setRequestHeader('Content-Type', 'application/json');
+         xhr.send(JSON.stringify({
+             review_text: 'value'
+         }));
+         xhr.onload = function() {
+           console.log("HELLO")
+           console.log(this.responseText);
+           var data = JSON.parse(this.responseText);
+           console.log(data);
+         }
 
-<form name="myForm" action="/action_page.php" onsubmit="return validateForm()" method="post">
-  Name: <input type="text" name="fname">
-  <input type="submit" value="Submit">
-</form>
-
-</body>
+      </script>
+   </body>
 </html>
