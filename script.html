@@ -10,11 +10,10 @@
          xhr.open("POST", "https://us-central1-keen-nth-poc.cloudfunctions.net/function-anthem-dupe", true);
          xhr.setRequestHeader('Content-Type', 'application/json');
          xhr.send(JSON.stringify({
-             review_text: 'value'
+             review_text: "A great doctor - really good explanation of issues and procedure. Did a great job. Excellent staff there too"
          }));
          xhr.onload = function() {
-           console.log("HELLO")
-           console.log(this.responseText);
+           console.log(this.responseText)
            var data = JSON.parse(this.responseText);
            console.log(data);
          }
