@@ -5,13 +5,45 @@
     <title></title>
   </head>
   <body>
+    <!-- https://alligator.io/js/preventdefault/#:~:text=preventDefault()%20method.,browser)%20when%20programming%20in%20JavaScript.&text=This%20method%20actually%20gives%20you,browser's%20default%20behavior%20for%20events. -->
     <input type="checkbox" id="myCheckbox">
+
+    <a href="https://duckduckgo.com" id="myLink">DuckDuckGo</a>
+    <input type="text" id="myInput"/>
+    <br>
+    <br>
+    <form action="https://duckduckgo.com" method="post" id="myForm" name="myForm">
+      <label for="fname">First name:</label>
+      <input type="text" id="fname" name="fname"><br><br>
+      <label for="lname">Last name:</label>
+      <input type="text" id="lname" name="lname"><br><br>
+      <input type="button" onclick="formSubmit()" value="Send form data!">
+    </form>
+
     <script type="text/javascript">
+      function formSubmit() {
+          document.forms["myForm"].submit();
+      }
+
       document
         .getElementById('myCheckbox')
         .addEventListener('click', (event) => {
           event.preventDefault();  // 👈
-      });
+        });
+
+      document.getElementById('myLink')
+        .addEventListener('click', (e) => e.preventDefault())
+
+      document.getElementById('myInput')
+        .addEventListener('keypress', (e) => e.preventDefault())
+
+       // you’ll probably resort to using preventDefault most often to stop forms from automatically submitting when the submit button is clicked
+       document
+         .getElementById('myForm')
+         .addEventListener('submit', (event) => {
+           event.preventDefault();  // 👈
+           // ...send the form data and get a response asynchronously
+         });
     </script>
   </body>
 </html>
