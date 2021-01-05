@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Jorge Cano</title>
+  <link rel="shortcut icon" href="../images/fav_icon.png" type="image/x-icon">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,700" rel="stylesheet">
+  <link rel="stylesheet" href="https://unpkg.com/bulma@0.7.4/css/bulma.min.css" />
+<!--   <link rel="stylesheet" type="text/css" href="css/stylesheet.css"> -->
+  <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+</head>
+
+<body>
+    <section class="hero is-info is-fullheight">
+        <div class="hero-head">
+            <nav class="navbar">
+                <div class="container">
+                    <div class="navbar-brand">
+                        <a class="navbar-item" href="https://keen.io/">
+                            <img src="keen-logo.svg" alt="Logo">
+                        </a>
+                        <span class="navbar-burger burger" data-target="navbarMenu">
+                            <span></span>
+                            <span></span>
+                            <span></span>
+                        </span>
+                    </div>
+                    <div id="navbarMenu" class="navbar-menu">
+                        <div class="navbar-end">
+                            <span class="navbar-item">
+                                <a class="button is-white is-outlined" href="https://keen.io/">
+                                    <span class="icon">
+                                        <i class="fa fa-home"></i>
+                                    </span>
+                                    <span>Home</span>
+                                </a>
+                            </span>
+
+                            <span class="navbar-item">
+                                <a class="button is-white is-outlined" href="https://keen.io/docs/">
+                                    <span class="icon">
+                                        <i class="fa fa-book"></i>
+                                    </span>
+                                    <span>Documentation</span>
+                                </a>
+                            </span>
+                            <span class="navbar-item">
+                                <a class="button is-white is-outlined" href="https://github.com/JAC-Keen/keen-nlp-function">
+                                    <span class="icon">
+                                        <i class="fa fa-github"></i>
+                                    </span>
+                                    <span>View Source</span>
+                                </a>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </nav>
+        </div>
+
+            <div class="hero-body">
+                <div class="container has-text-centered">
+                    <div class="column is-6 is-offset-3">
+                        <h1 class="title">
+                          Keen Tutorial: <br>Feedback Forms and Natural Language Processing
+                        </h1>
+                        <h2 class="subtitle">
+                            Submit some feedback in the box below
+                        </h2>
+                        <div class="box">
+
+                          <div class="field is-grouped">
+                              <p class="control is-expanded">
+                                  <input id="feedbackText" class="input" type="text" placeholder="Enter your feedback...">
+                              </p>
+                              <p class="control">
+                                  <a id="submitButton" class="button is-info" id="submitButton">
+                                      Send Feedback
+                                  </a>
+                              </p>
+                          </div>
+                          <div id="errornote" style="display:none"><p>Oops got an error, check your console logs!</p></div>
+                          <div id="thankyou" style="display:none"><p>Thank you for your Feedback!</p></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+    </section>
+
+    <script type="text/javascript">
+      // Keen Auto Collector
+      (function(name,path,ctx){ctx[name]=ctx[name]||{ready:function(fn){var h=document.getElementsByTagName('head')[0],s=document.createElement('script'),w=window,loaded;s.onload=s.onerror=s.onreadystatechange=function(){if((s.readyState&&!(/^c|loade/.test(s.readyState)))||loaded){return}s.onload=s.onreadystatechange=null;loaded=1;ctx[name].ready(fn)};s.async=1;s.src=path;h.parentNode.insertBefore(s,h)}}})
+      ('KeenTracking', 'https://cdn.jsdelivr.net/npm/keen-tracking@4/dist/keen-tracking.min.js', this);
+      KeenTracking.ready(function(){
+        const client = new KeenTracking({
+          projectId: '5c2e3be8c9e77c0001ed971f',
+          writeKey: '6188D519C7F63142175FF26C2658707369D1050D48F0FBE3277561FCF1C90F5E0B0FDAD945169531E445E6C0CDD062B0DDBF2D4D258A94A044F817CCEBCE774BDD87BD17AB85F8B24FC12E610187516C4A3AB25045CF56FCA7EF5591FC56302F'
+        });
+        // Record events automatically
+        client.initAutoTracking();
+      });
+
+      $('#submitButton').click(function(){ SubmitFeedback(); return false; });
+
+        // Ajax Post Request with feedback for sentiment analysis and magnitude score via Google Cloud Function
+      var SubmitFeedback = function() {
+        $.ajax({
+            type: "POST",
+            url: "https://us-central1-keen-nth-poc.cloudfunctions.net/function-anthem-dupe",
+            data: JSON.stringify({ review_text: $('#feedbackText').val() }),
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            // log a success if it sends as expected and display message in markup
+            success: function(data){
+              $("#thankyou").show();
+              $("#errornote").hide();
+              $("#submitButton").hide();
+              $("#feedbackText").hide();
+              console.log('success', data)
+            },
+            // log error message in our console if an error occurs and display message in markup
+            error: function(errMsg) {
+              $("#thankyou").hide();
+              $("#errornote").show();
+              console.log("got an error", errMsg)
+            }
+        });
+      }
+    </script>
+
+    <script async type="text/javascript" src="../js/bulma.js"></script>
+</body>
+
+</html>
