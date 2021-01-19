@@ -3,3 +3,4 @@ unzip <file name>
 ls -1 | sort
 echo '{"foo": "lorem", "bar": "ipsum"}' | python -m json.tool
 ls -la
+python -m http.server
