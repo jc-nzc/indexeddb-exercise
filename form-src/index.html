@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+	<head>
+		<meta charset="utf-8">
+		<title>Digital Signature</title>
+		<link rel="stylesheet" href="style.css">
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+	</head>
+	<body>
+
+		<!-- Content -->
+		<div class="container">
+			<div class="row">
+				<div class="col-md-12">
+					<h1>E-Signature</h1>
+					<p>Sign in the canvas below and save your signature as an image!</p>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-12">
+					<canvas id="sig-canvas" width="620" height="160">
+						Get a better browser, bro.
+					</canvas>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-12">
+					<button class="btn btn-primary" id="sig-submitBtn">Submit Signature</button>
+					<button class="btn btn-default" id="sig-clearBtn">Clear Signature</button>
+				</div>
+			</div>
+			<br/>
+			<div class="row">
+				<div class="col-md-12">
+					<textarea id="sig-dataUrl" class="form-control" rows="5">Data URL for your signature will go here!</textarea>
+				</div>
+			</div>
+			<br/>
+			<div class="row">
+				<div class="col-md-12">
+					<img id="sig-image" src="pen.svg" alt="Your signature will go here!">
+					<p><br>Here will be a copy of signature</p>
+				</div>
+			</div>
+		</div>
+
+		<script src="script.js"></script>
+	</body>
+</html>
